@@ -13,7 +13,7 @@ spec:
         app: podtato-head-frontend
         app.kubernetes.io/name: podtato-head-frontend
         app.kubernetes.io/part-of: podtato-head
-        app.kubernetes.io/version: {{ .Values.serviceVersion }}2
+        app.kubernetes.io/version: {{ .Values.serviceVersion }}
     spec:
       containers:
         - image: ghcr.io/podtato-head/podtato-server:{{ .Values.serviceVersion }}
@@ -90,7 +90,7 @@ spec:
           context = JSON.parse(contextText);
         }
         
-        let body = `{"ref":"main","inputs":{"traceParent":${context.metadata.traceParent}"}}`;
+        let body = `{"ref":"main","inputs":{"traceParent":"${context.metadata.traceParent}"}}`;
         
         let resp = await fetch("https://api.github.com/repos/" + secureData.githubRepoOwner + "/" + secureData.githubRepo + "/actions/workflows/promote.yaml/dispatches", {
             method: "POST",
