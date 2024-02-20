@@ -47,5 +47,7 @@ metadata:
   name: podtato-head
   namespace: podtato-head-production
 spec:
+  spanLinks:
+    - {{ .Values.traceParent }}
   metadata:
     commitID: {{ .Values.commitID }}
