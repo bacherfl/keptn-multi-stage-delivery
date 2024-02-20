@@ -99,7 +99,7 @@ spec:
         
         let body = `{"ref":"main","inputs":{"traceParent":${context.metadata.traceParent}"}}`;
         
-        let resp = await fetch("https://api.github.com/repos/" + secureData.githubRepoOwner + "/" + secureData.githubRepo + "/actions/workflows/promote.yml/dispatches" {
+        let resp = await fetch("https://api.github.com/repos/" + secureData.githubRepoOwner + "/" + secureData.githubRepo + "/actions/workflows/promote.yml/dispatches", {
             method: "POST",
             body,
         });
