@@ -64,6 +64,19 @@ spec:
 apiVersion: lifecycle.keptn.sh/v1beta1
 kind: KeptnTaskDefinition
 metadata:
+  name: post-deployment
+  namespace: podtato-head-dev
+spec:
+  function:
+    secureParameters:
+      secret: github-token
+    inline:
+      code: |
+        console.log("deployment completed");
+---
+apiVersion: lifecycle.keptn.sh/v1beta1
+kind: KeptnTaskDefinition
+metadata:
   name: promote
   namespace: podtato-head-dev
 spec:
