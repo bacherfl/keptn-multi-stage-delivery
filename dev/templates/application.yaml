@@ -84,9 +84,7 @@ spec:
     secureParameters:
       secret: github-token
     inline:
-      code: |
-        import { Octokit, App } from "https://esm.sh/octokit?dts";
-        
+      code: |       
         let secureDataText = Deno.env.get("SECURE_DATA");
         let secureData;
         if (secureDataText != "") {
@@ -99,18 +97,11 @@ spec:
           context = JSON.parse(contextText);
         }
         
-        const octokit = new Octokit({ auth: secureData.apiToken });
+        let body = `{"ref":"main","inputs":{"traceParent":${context.metadata.traceParent}"}}`;
         
-        try {
-          await octokit.rest.actions.createWorkflowDispatch({
-            owner: secureData.githubRepoOwner,
-            repo: secureData.githubRepo,
-            workflow_id: "promote.yml",
-            ref: "main",
-            inputs: {
-              "traceParent": context.metadata.traceParent
-            }
-          });
-        } catch (error) {
-          console.log(error);
-        } 
+        let resp = await fetch("https://api.github.com/repos/" + secureData.githubRepoOwner + "/" + secureData.githubRepo + "/actions/workflows/promote.yml/dispatches" {
+            method: "POST",
+            body,
+        });
+          
+        console.log(resp);
